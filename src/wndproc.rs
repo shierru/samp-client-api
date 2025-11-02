@@ -5,7 +5,7 @@ use winapi::um::winuser::{CallWindowProcA, FindWindowA, SetWindowLongPtrA, GWL_W
 
 use crate::samp::{gamestate, Gamestate};
 
-#[derive(Debug, Clone)]
+
 pub struct WndProcSettings {
     pub callback: fn(),
     pub hwnd: HWND,

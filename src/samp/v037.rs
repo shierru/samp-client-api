@@ -84,7 +84,7 @@ impl CNetGame {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CNetGame_Pools {
     pub m_pActor: *mut (),
     pub m_pObject: *mut CObjectPool,
@@ -187,7 +187,7 @@ impl CVehicle {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CPlayerPool_Local {
     pub m_nId: ID,
     pub __align: std::os::raw::c_int,
@@ -198,7 +198,7 @@ pub struct CPlayerPool_Local {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CPlayerInfo {
     pub m_pPlayer: *mut CRemotePlayer,
     pub m_bIsNPC: BOOL,
@@ -366,14 +366,14 @@ impl CRemotePlayer {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CRemotePlayer__bindgen_ty_1 {
     pub real: f32,
     pub imag: CVector,
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CRemotePlayer__bindgen_ty_2 {
     pub m_direction: CVector,
     pub m_lastUpdate: TICK,
@@ -381,7 +381,7 @@ pub struct CRemotePlayer__bindgen_ty_2 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CRemotePlayer__bindgen_ty_3 {
     pub x: std::os::raw::c_int,
     pub y: std::os::raw::c_int,
@@ -389,7 +389,7 @@ pub struct CRemotePlayer__bindgen_ty_3 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct Accessory {
     pub m_nModel: std::os::raw::c_int,
     pub m_nBone: std::os::raw::c_int,
@@ -423,7 +423,7 @@ pub struct CPed {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CPed__bindgen_ty_1 {
     pub m_bNotEmpty: [BOOL; 10],
     pub m_info: [Accessory; 10],
@@ -431,7 +431,7 @@ pub struct CPed__bindgen_ty_1 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CPed__bindgen_ty_2 {
     pub m_nType: std::os::raw::c_int,
     pub m_object: GTAREF,
@@ -593,7 +593,7 @@ impl CLocalPlayer {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CLocalPlayer_SpawnInfo {
     pub m_nTeam: NUMBER,
     pub m_nSkin: std::os::raw::c_int,
@@ -605,7 +605,7 @@ pub struct CLocalPlayer_SpawnInfo {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CLocalPlayer__bindgen_ty_1 {
     pub m_nAimedPlayer: ID,
     pub m_nAimedActor: ID,
@@ -615,7 +615,7 @@ pub struct CLocalPlayer__bindgen_ty_1 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CLocalPlayer_CameraTarget {
     pub m_nObject: ID,
     pub m_nVehicle: ID,
@@ -624,7 +624,7 @@ pub struct CLocalPlayer_CameraTarget {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CLocalPlayer__bindgen_ty_2 {
     pub m_direction: CVector,
     pub m_lastUpdate: TICK,
@@ -644,7 +644,7 @@ pub struct CLocalPlayer__bindgen_ty_3 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CLocalPlayer__bindgen_ty_4 {
     pub m_bEnableAfterDeath: BOOL,
     pub m_nSelected: std::os::raw::c_int,
@@ -653,7 +653,7 @@ pub struct CLocalPlayer__bindgen_ty_4 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CLocalPlayer__bindgen_ty_5 {
     pub m_nMode: std::os::raw::c_char,
     pub m_nType: std::os::raw::c_char,
@@ -662,7 +662,7 @@ pub struct CLocalPlayer__bindgen_ty_5 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+
 pub struct CLocalPlayer__bindgen_ty_6 {
     pub m_nVehicleUpdating: ID,
     pub m_nBumper: std::os::raw::c_int,
@@ -672,14 +672,14 @@ pub struct CLocalPlayer__bindgen_ty_6 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug, Clone)]
+
 pub struct CSimpleTransform {
     pub m_vPosn: CVector,
     pub m_fHeading: f32,
 }
 
 #[repr(C, packed)]
-#[derive(Debug, Clone)]
+
 pub struct CPlaceable {
     pub vtable_: *const (),
     pub m_placement: CSimpleTransform,

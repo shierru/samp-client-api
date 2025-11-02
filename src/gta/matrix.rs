@@ -1,12 +1,12 @@
 #[repr(C, packed)]
-#[derive(Debug, Clone)]
+
 pub struct CSimpleTransform {
     pub m_vPosn: CVector,
     pub m_fHeading: f32,
 }
 
 #[repr(C, packed)]
-#[derive(Debug, Clone)]
+
 pub struct CPlaceable {
     pub vtable_: *const (),
     pub m_placement: CSimpleTransform,
@@ -32,7 +32,7 @@ pub struct CVector {
 }
 
 #[repr(C)]
-#[derive(Debug)]
+
 pub struct CQuaternion {
     pub imag: CVector,
     pub real: f32,
@@ -61,7 +61,7 @@ impl CVector {
 }
 
 #[repr(C, packed)]
-#[derive(Debug, Clone)]
+
 pub struct RwMatrix {
     pub right: CVector,
     pub flags: std::os::raw::c_ulong,
@@ -73,7 +73,7 @@ pub struct RwMatrix {
     pub pad_p: f32,
 }
 
-#[derive(Debug, Clone)]
+
 pub struct Place {
     pub matrix: RwMatrix,
     pub position: CVector,
@@ -82,7 +82,7 @@ pub struct Place {
 }
 
 #[repr(C)]
-#[derive(Debug)]
+
 pub struct CVector2D {
     pub x: f32,
     pub y: f32,
