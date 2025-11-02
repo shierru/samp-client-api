@@ -1,4 +1,3 @@
-#![feature(abi_system)]
 #![allow(non_snake_case)]
 
 pub mod gta;

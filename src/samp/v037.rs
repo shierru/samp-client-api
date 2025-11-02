@@ -672,14 +672,14 @@ pub struct CLocalPlayer__bindgen_ty_6 {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct CSimpleTransform {
     pub m_vPosn: CVector,
     pub m_fHeading: f32,
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct CPlaceable {
     pub vtable_: *const (),
     pub m_placement: CSimpleTransform,

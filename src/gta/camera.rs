@@ -115,7 +115,7 @@ pub struct CCam {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct CQueuedMode {
     pub m_nMode: std::os::raw::c_ushort,
     pub m_fDuration: f32,
@@ -130,7 +130,7 @@ pub struct CCamPathSplines {
 }
 
 #[repr(C, packed)]
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct CCamera {
     pub _base: CPlaceable,
     pub m_bAboveGroundTrainNodesLoaded: bool,

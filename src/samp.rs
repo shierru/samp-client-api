@@ -20,7 +20,7 @@ pub type ID = std::os::raw::c_ushort;
 pub type NUMBER = std::os::raw::c_uchar;
 pub type D3DCOLOR = std::os::raw::c_ulong;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 #[repr(C)]
 pub struct CStdString {
     bytes: [u8; 16], // it's like union
