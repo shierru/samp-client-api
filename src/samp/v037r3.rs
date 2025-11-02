@@ -162,29 +162,33 @@ impl CPlayerInfo {
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
 
-        self.m_szNick
-            .as_str()
-            .map(|name| {
-                let mut hasher = DefaultHasher::new();
-                name.hash(&mut hasher);
-                hasher.finish()
-            })
-            .unwrap_or(0)
+        unsafe { 
+            std::ptr::read_unaligned(&self.m_szNick)
+                .as_str()
+                .map(|name| {
+                    let mut hasher = DefaultHasher::new();
+                    name.hash(&mut hasher);
+                    hasher.finish()
+                })
+                .unwrap_or(0)
+        }
     }
 
     pub fn name(&self) -> Option<&str> {
-        self.m_szNick.as_str().ok()
+        unsafe { std::ptr::read_unaligned(&self.m_szNick) }.as_str().ok()
     }
 
     pub fn name_with_id(&self) -> String {
-        self.m_szNick
-            .as_str()
-            .ok()
-            .and_then(|name| {
-                let remote = self.remote_player()?;
-                Some(format!("[ID: {}] {}", remote.m_nId, name))
-            })
-            .unwrap_or_else(|| "[ID: -1] bugged name".to_owned())
+        unsafe { 
+            std::ptr::read_unaligned(&self.m_szNick)
+                .as_str()
+                .ok()
+                .and_then(|name| {
+                    let remote = self.remote_player()?;
+                    Some(format!("[ID: {}] {}", remote.m_nId, name))
+                })
+                .unwrap_or_else(|| "[ID: -1] bugged name".to_owned())
+        }
     }
 }
 
@@ -279,7 +283,7 @@ impl CRemotePlayer {
     }
 
     pub fn id(&self) -> ID {
-        self.m_nId
+        unsafe { std::ptr::read_unaligned(&self.m_nId) }
     }
 }
 
@@ -735,7 +739,7 @@ pub fn netgame() -> *mut CNetGame {
 
 pub fn players<'a>() -> Option<impl Iterator<Item = &'a mut CPlayerInfo>> {
     player_pool().map(|pool| {
-        pool.m_pObject
+        unsafe { std::ptr::read_unaligned(&pool.m_pObject) }
             .iter_mut()
             .filter(|player| !player.is_null())
             .map(|player| unsafe { &mut **player })

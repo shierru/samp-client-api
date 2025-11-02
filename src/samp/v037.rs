@@ -243,14 +243,16 @@ impl CPlayerInfo {
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
 
-        self.m_szNick
-            .as_str()
-            .map(|name| {
-                let mut hasher = DefaultHasher::new();
-                name.hash(&mut hasher);
-                hasher.finish()
-            })
-            .unwrap_or(0)
+        unsafe { 
+            std::ptr::read_unaligned(&self.m_szNick)
+                .as_str()
+                .map(|name| {
+                    let mut hasher = DefaultHasher::new();
+                    name.hash(&mut hasher);
+                    hasher.finish()
+                })
+                .unwrap_or(0)
+        }
     }
 
     pub fn name(&self) -> Option<&str> {
@@ -770,7 +772,7 @@ pub fn netgame() -> *mut CNetGame {
 
 pub fn players<'a>() -> Option<impl Iterator<Item = &'a mut CPlayerInfo>> {
     player_pool().map(|pool| {
-        pool.m_pObject
+        unsafe { std::ptr::read_unaligned(&pool.m_pObject) }
             .iter_mut()
             .filter(|player| !player.is_null())
             .map(|player| unsafe { &mut **player })

@@ -284,13 +284,13 @@ pub fn find_player<'a>(id: i32) -> Option<Player<'a>> {
 pub fn players<'a>() -> Option<PlayersIterator<'a>> {
     match version() {
         Version::V037 => Some(PlayersIterator {
-            players_v1: r1::player_pool().map(|pool| pool.m_pObject.as_mut()),
+            players_v1: r1::player_pool().map(|pool| unsafe { std::ptr::read_unaligned(&pool.m_pObject) }.as_mut()),
             players_v3: None,
             index: 0,
         }),
 
         Version::V037R3 => Some(PlayersIterator {
-            players_v3: r3::player_pool().map(|pool| pool.m_pObject.as_mut()),
+            players_v3: r3::player_pool().map(|pool| unsafe { std::ptr::read_unaligned(&pool.m_pObject) }.as_mut()),
             players_v1: None,
             index: 0,
         }),
