@@ -3,13 +3,13 @@ use retour::GenericDetour;
 use super::version::{version, Version};
 
 struct DeathWindowDrawHook {
-    hook: GenericDetour<extern "thiscall" fn(*mut ())>,
+    hook: GenericDetour<extern "system" fn(*mut ())>,
     callback: Box<dyn FnMut()>,
 }
 
 static mut DRAW_HOOK: Option<DeathWindowDrawHook> = None;
 
-extern "thiscall" fn deathwindow_draw(this: *mut ()) {
+extern "system" fn deathwindow_draw(this: *mut ()) {
     unsafe {
         if let Some(hook) = DRAW_HOOK.as_mut() {
             hook.hook.call(this);
@@ -31,7 +31,7 @@ impl DeathWindow {
 
         unsafe {
             let ptr = super::handle().add(address);
-            let func: extern "thiscall" fn(*mut ()) = std::mem::transmute(ptr);
+            let func: extern "system" fn(*mut ()) = std::mem::transmute(ptr);
 
             if let Ok(hook) = GenericDetour::new(func, deathwindow_draw) {
                 let _ = hook.enable();

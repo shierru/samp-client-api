@@ -4,12 +4,12 @@ use crate::gta::matrix::CRect;
 use crate::gta::rw::rwcore::RwTexture;
 use crate::gta::rw::rwplcore::RwRGBA;
 
-type SpriteCreate = extern "thiscall" fn(this: *mut SpriteInner);
-type SpriteDestroy = extern "thiscall" fn(this: *mut SpriteInner);
+type SpriteCreate = extern "system" fn(this: *mut SpriteInner);
+type SpriteDestroy = extern "system" fn(this: *mut SpriteInner);
 type SpriteDraw =
-    extern "thiscall" fn(this: *mut SpriteInner, posn: *mut CRect, color: *mut RwRGBA);
+    extern "system" fn(this: *mut SpriteInner, posn: *mut CRect, color: *mut RwRGBA);
 
-type SpriteSetRenderState = extern "thiscall" fn(this: *mut SpriteInner);
+type SpriteSetRenderState = extern "system" fn(this: *mut SpriteInner);
 
 pub struct Sprite {
     inner: NonNull<SpriteInner>,

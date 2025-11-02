@@ -45,7 +45,7 @@ impl<'a> NetGame<'a> {
 
         unsafe {
             let ptr = super::handle().add(address);
-            let func: extern "thiscall" fn(this: *mut ()) = std::mem::transmute(ptr);
+            let func: extern "system" fn(this: *mut ()) = std::mem::transmute(ptr);
 
             GenericDetour::new(func, cnetgame_destroy)
                 .map(|hook| {
@@ -68,7 +68,7 @@ impl<'a> NetGame<'a> {
 
         unsafe {
             let ptr = super::handle().add(address);
-            let func: extern "thiscall" fn(*mut ()) = std::mem::transmute(ptr);
+            let func: extern "system" fn(*mut ()) = std::mem::transmute(ptr);
 
             GenericDetour::new(func, cnetgame_reconnect)
                 .map(|hook| {
@@ -91,7 +91,7 @@ impl<'a> NetGame<'a> {
 
         unsafe {
             let ptr = super::handle().add(address);
-            let func: extern "thiscall" fn(*mut (), *mut ()) = std::mem::transmute(ptr);
+            let func: extern "system" fn(*mut (), *mut ()) = std::mem::transmute(ptr);
 
             GenericDetour::new(func, cnetgame_connect)
                 .map(|hook| {
@@ -107,13 +107,13 @@ impl<'a> NetGame<'a> {
 }
 
 struct CNetGameDestroyHook {
-    hook: GenericDetour<extern "thiscall" fn(*mut ())>,
+    hook: GenericDetour<extern "system" fn(*mut ())>,
     callback: Box<dyn FnMut()>,
 }
 
 static mut DESTROY_HOOK: Option<CNetGameDestroyHook> = None;
 
-extern "thiscall" fn cnetgame_destroy(this: *mut ()) {
+extern "system" fn cnetgame_destroy(this: *mut ()) {
     unsafe {
         if let Some(hook) = DESTROY_HOOK.as_mut() {
             (hook.callback)();
@@ -123,13 +123,13 @@ extern "thiscall" fn cnetgame_destroy(this: *mut ()) {
 }
 
 struct CNetGameStateHook {
-    hook: GenericDetour<extern "thiscall" fn(*mut (), *mut ())>,
+    hook: GenericDetour<extern "system" fn(*mut (), *mut ())>,
     callback: Box<dyn FnMut()>,
 }
 
 static mut STATE_HOOK: Option<CNetGameStateHook> = None;
 
-extern "thiscall" fn cnetgame_connect(this: *mut (), packet: *mut ()) {
+extern "system" fn cnetgame_connect(this: *mut (), packet: *mut ()) {
     unsafe {
         if let Some(hook) = STATE_HOOK.as_mut() {
             (hook.callback)();
@@ -139,13 +139,13 @@ extern "thiscall" fn cnetgame_connect(this: *mut (), packet: *mut ()) {
 }
 
 struct CNetGameReconnectHook {
-    hook: GenericDetour<extern "thiscall" fn(*mut ())>,
+    hook: GenericDetour<extern "system" fn(*mut ())>,
     callback: Box<dyn FnMut()>,
 }
 
 static mut RECONNECT_HOOK: Option<CNetGameReconnectHook> = None;
 
-extern "thiscall" fn cnetgame_reconnect(this: *mut ()) {
+extern "system" fn cnetgame_reconnect(this: *mut ()) {
     unsafe {
         if let Some(hook) = RECONNECT_HOOK.as_mut() {
             (hook.callback)();

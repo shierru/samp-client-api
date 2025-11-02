@@ -146,9 +146,9 @@ pub fn show_cursor(show: bool) {
             return;
         }
 
-        let set_cursor_mode: extern "thiscall" fn(*mut c_void, i32, BOOL) =
+        let set_cursor_mode: extern "system" fn(*mut c_void, i32, BOOL) =
             std::mem::transmute(samp_base.add(setcursor_addr));
-        let process_input_enabling: extern "thiscall" fn(*mut c_void) =
+        let process_input_enabling: extern "system" fn(*mut c_void) =
             std::mem::transmute(samp_base.add(process_addr));
 
         let mode = if show { 2 } else { 0 };
